@@ -26,7 +26,21 @@ function init () {
             
         }
     });
-    
+    buttonLanding.addEventListener("click",function(){
+        window.alert("The shuttle is landing. Landing gear engaged.")
+        document.getElementById("flightStatus").innerHTML = "Shuttle has landed.";
+        document.getElementById("shuttleBackground").style.backgroundColor = "green";
+        document.getElementById("spaceShuttleHeight").innerHTML = "0";
+    });
+    buttonMissionAbort.addEventListener("click",function(){
+        let answer = window.confirm("Confirm that you want to abort the mission");
+        if(answer === true){
+            document.getElementById("flightStatus").innerHTML = "Mission Aborted";
+            document.getElementById("shuttleBackground").style.backgroundColor = "green";
+            document.getElementById("spaceShuttleHeight").innerHTML = "0";
+            
+        }
+    });
 }
 
 window.onload = init;
