@@ -7,6 +7,8 @@ let buttonUp = null;
 let buttonDown = null;
 let buttonLeft = null;
 let buttonRight = null;
+let positionX = 0;
+let positionY = 0;
 
 function init () {
     buttonTakeOff = document.getElementById("takeoff");
@@ -16,13 +18,16 @@ function init () {
     buttonDown = document.getElementById("down");
     buttonLeft = document.getElementById("left");
     buttonRight = document.getElementById("right");
+    let rocket = document.getElementById("rocket");
+
+    
 
     buttonTakeOff.addEventListener("click", function(){
         let answer = window.confirm("Confirm that the shuttle is ready for takeoff.");
         if(answer === true){
             document.getElementById("flightStatus").innerHTML = "Shuttle in flight.";
             document.getElementById("shuttleBackground").style.backgroundColor = "blue";
-            document.getElementById("spaceShuttleHeight").innerHTML = "10,000";
+            document.getElementById("spaceShuttleHeight").innerHTML = "10000";
             
         }
     });
@@ -31,6 +36,7 @@ function init () {
         document.getElementById("flightStatus").innerHTML = "Shuttle has landed.";
         document.getElementById("shuttleBackground").style.backgroundColor = "green";
         document.getElementById("spaceShuttleHeight").innerHTML = "0";
+        rocket.style.transform = `translate(0px, 0px)`
     });
     buttonMissionAbort.addEventListener("click",function(){
         let answer = window.confirm("Confirm that you want to abort the mission");
@@ -41,6 +47,31 @@ function init () {
             
         }
     });
+    buttonUp.addEventListener("click",function(){
+        document.getElementById("spaceShuttleHeight").innerHTML = (Number(document.getElementById("spaceShuttleHeight").innerHTML) + 10000).toString();
+        moveRocket(0, -10);
+        
+    
+    });
+    buttonDown.addEventListener("click",function(){
+        moveRocket(0, 10);
+        let height = Number(spaceShuttleHeight.innerHTML);
+        if (height > 0) {
+            spaceShuttleHeight.innerHTML = (Number(spaceShuttleHeight.innerHTML) - 10000).toString();
+        }
+    });
+    buttonLeft.addEventListener("click",function(){
+        moveRocket(-10, 0);
+    });
+    buttonRight.addEventListener("click",function(){
+        moveRocket(10, 0);
+    });
+
+    function moveRocket(moveX, moveY){
+        positionX += moveX;
+        positionY += moveY;
+        rocket.style.transform = `translate(${positionX}px, ${positionY}px)`;  
+    }
 }
 
 window.onload = init;
